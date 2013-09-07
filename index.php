@@ -7,39 +7,26 @@
 
   // Make a nice friendly URL with no www prefix (only for display purposes)
   $host = str_replace("www.", "", $_SERVER["HTTP_HOST"]);
-  $requestedUri = $_SERVER["HTTP_HOST"];
-  $requestedUri .=  $_SERVER["REQUEST_URI"];
+  $requestedUri = $_SERVER["HTTP_HOST"] . $_SERVER["REQUEST_URI"];
 
   // Don't log favicon requests which the browser will issue when loading the log file
-  if($_SERVER["REQUEST_URI"] != "/favicon.ico")
-  {
+  if($_SERVER["REQUEST_URI"] != "/favicon.ico"){
     $handle = fopen($logFileName, 'a') or die("Can't open file");
-
-    fwrite($handle, date('Y-m-d H:i:s'));
-    fwrite($handle, "|");
-    fwrite($handle, $requestedUri);
-    fwrite($handle, "|");
-    fwrite($handle, $_SERVER["REMOTE_HOST"]);
-    fwrite($handle, "|");
-    fwrite($handle, $_SERVER["HTTP_ACCEPT"]);
-    fwrite($handle, "|");
-    fwrite($handle, $_SERVER["HTTP_USER_AGENT"]);
-
-    fwrite($handle, "\n");
-
+	
+    fwrite($handle, date('Y-m-d H:i:s') . "|" . $requestedUri . "|" . $_SERVER["REMOTE_HOST"] . 
+    "|" . $_SERVER["HTTP_ACCEPT"] . "|" . $_SERVER["HTTP_USER_AGENT"] . "\n");
+	
     fclose($handle);
   }
 
   // This is iOS' Wi-Fi connectivity test request: http://erratasec.blogspot.com.au/2010/09/apples-secret-wispr-request.html
-  if($requestedUri == "www.apple.com/library/test/success.html")
-  {
+  if($requestedUri == "www.apple.com/library/test/success.html"){
     print_r("<HTML><HEAD><TITLE>Success</TITLE></HEAD><BODY>Success</BODY></HTML>");
     exit();
   }
   
   // This is Windows' Wi-Fi connectivity test request: http://technet.microsoft.com/en-us/library/cc766017(v=WS.10).aspx
-  if($requestedUri == "www.msftncsi.com/ncsi.txt")
-  {
+  if($requestedUri == "www.msftncsi.com/ncsi.txt"){
     print_r("Microsoft NCSI");
     exit();
   }
@@ -51,40 +38,35 @@
   <title>This is not <?php print_r($host); ?>!</title>
   <meta content="width=device-width, initial-scale=1.0, maximum-scale=1.0" name="viewport" />
   <style type="text/css">
-    body
-    {
+    body{
       font-family: league-gothic,sans-serif;
-      background-color: #333333;
-      color: #fdfdfd;
+      background-color: #ffffff;
+      color: #868686;
       margin: 0;
       padding: 0;
     }
 
-    p
-    {
+    p{
       font-size: 0.9em;
       line-height: 1.285em;
     }
 
-    header, content
-    {
+    header, content{
       padding: 0 20%;
       display: block;
     }
 
-    header
-    {
+    header{
       padding-bottom: 20px;
     }
 
-    content
-    {
-      background-color: #222222;
+    content{
+      background-color: #ffffff;
+	  color: #000000;
       padding-top: 40px;
     }
 
-    h1, h2
-    {
+    h1, h2{
       display: block;
       font-weight: bold;
       letter-spacing: 0.04em;
@@ -95,87 +77,75 @@
       padding: 0;
     }
 
-    h1
-    {
+    h1{
       font-size: 6.8em;
       margin: 5px 0 0 0;
     }
 
-    h2
-    {
+    h2{
       font-size: 1.6em;
       margin: 0 0 22px 0;
     }
 
-    h3
-    {
+    h3{
       font-size: 1em;
-      background-color: #b21563;
+      background-color: #2971ff;
       display: inline;
       padding: 7px;
       margin-bottom: 10px;
       line-height: 2.2em;
+	  color: #ffffff;
     }
 
-    hr
-    {
+    hr{
       border: 0;
       height: 6px;
       background-color: #fdfdfd;
       width: 30%;
     }
 
-    p
-    {
+    p{
       padding: 0 0 23px 0;
       margin: 10px 0 0 0;
+	  text-align: justify;
     }
 
-    p, li
-    {
+    p, li{
       word-wrap: break-word;
     }
 
-    em
-    {
+    em{
       font-style: normal;
-      color: #a7d019;
+      color: #2971ff;
       font-size: 1.1em;
     }
 
-    ol
-    {
+    ol{
       color: #222222;
       font-weight: bold;
     }
 
-    ol span
-    {
-      color: #666666;
+    ol span{
+      color: #000000;
     }
 
-    div
-    {
-      background-color: #a7d019;
+    div{
+      background-color: #2971ff;
       padding: 10px;
       margin-bottom: 40px;
     }
 
-    @media only screen and (max-width: 630px)
-    {
-      header, content
-      {
+    @media only screen and (max-width: 630px){
+      header, content{
         padding-left: 4%;
         padding-right: 4%;
       }
 
-      h1
-      {
+      h1{
         font-size: 5em;
       }
 
-      h2
-      {
+      h2{
         font-size: 1.4em;
       }
     }
@@ -200,35 +170,29 @@
       Double check the URL in your address bar, I'll wait...
     </p>
     <h3>
-      This is a rogue wireless access point
+      This is Karma baby!
     </h3>
     <p>
-      You might have done it consciously thinking you were picking up some free Wi-Fi or your device might have done it
-      accidentally. Most devices remember networks they've previously connected to and continue to look for them well
-      after they're gone. But how did that get
-      you here?
+      Your device has most likely connected to this rogue access point thanks to the Karma functionality of the Jasager firmware powering my WiFi Pineapple. By responding to beacon requests sent by your device the WiFi Pineapple has impersonated an access point that you have previously connected to.
     </p>
     <h3>
-      WILSON!!!
+      Beacons, what beacons?...
     </h3>
     <p>
-      Let's imagine you once connected to an unprotected access point called &quot;WILSON&quot;. <em>Your phone or tablet
-      or laptop is now wandering around screaming &quot;WILSON&quot;, &quot;WILSON&quot;, where are you
-      &quot;WILSON&quot;?!</em> The access point you're now connected to heard that and responded with "I'm WILSON" and
-      now here you are.
+      Each time you connect to a WiFi access point your device most likely remembers it. Your device then sends out beacons to search for these networks so it can connect to them when you're nearby. Karma works by simply responding to these beacons and telling your device that it's the access point you're looking for.
     </p>
     <h3>
-      Cookies
+      Mmm cookies
     </h3>
     <p>
-      Now that you're connected, <em>the device could monitor all your unencrypted traffic</em>; read any passwords you
-      send, store the responses from websites you visit and grab any cookies along the way.
+      Now that you're connected an attacker could run all kinds of MiTM attacks. Fortunately, we're the good guys. We could look at your unencrypted traffic, redirect you to malicious sites and even view your cookies.
 
       <?php 
         if(empty($_COOKIE))
         {
-          echo "As it turns out, your browser didn't send any cookies with this request but it could all so easily have
-          been a different situation. ";
+		  echo ":</p><div><ol>" . 
+          "Luckily you don't have any cookies on this site!" . 
+		  "</ol></div><p>";
         }
         else
         {
@@ -247,31 +211,24 @@
         }
       ?>
 
-      Often these cookies will contain enough information for an attacker to hijack your session and impersonate you;
-      it's the equivalent of just handing over your phone or PC whilst you're already logged in.
     </p>
     <h3>
-      Insecure websites put you at risk
+      But what about HTTPS?
     </h3>
     <p>
-      It's <em>websites that do not implement proper transport
-      layer protection that put you at risk.</em> You requested this site over HTTP and it sent the cookies you see
-      above in an insecure fashion which, depending on their purpose, can be rather bad. That is the website's fault.
+      If the website you were trying to access had the 'Secure' flag on their cookies they would not have been sent over the HTTP connection you are currently using. A proper implementation of TLS would have protected you.
     </p>
     <h3>
       Don't trust Wi-Fi hotspots
     </h3>
     <p>
-      You could just as easily have been served the actual
-      page you requested and if not loaded securely it could have been monitored or manipulated by the access point you
-      are presently connected to. <em>An attacker could be harvesting your info and you would be none the wiser.</em>
+      If you don't know who owns or controls the access point, or who else might be connected, you could be at risk. The access point itself or any other client on the network could gain access to your traffic and launch a MiTM attack against you.
     </p>
     <h3>
       But don't worry...
     </h3>
     <p>
-      Fortunately this is a friendly rogue access point. No personal data has been collected and you've learnt
-      something new about Wi-Fi and website security. Have a nice day!
+      Fortunately for you this rogue access point has been trained to be nice! We haven't collected any data, don't worry. Hopefully you now better understand the risks you face when using a WiFi access point.
     </p>
   <content>
 </body>
