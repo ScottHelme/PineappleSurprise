@@ -1,5 +1,5 @@
 <?php
-  // Choose a random name so people aren't aren't stumbling over your log (this IS NOT secure - it's just obfuscation)
+  // Choose a random name so people aren't aren't stumbling over your log (this IS NOT secure - it's just obfuscation). Better put it on sd card
   $logFileName = "myrandomname.log";
 
   // Make sure you specify a path with enough capacity such as a USB drive or you're not going to go very far with this!
